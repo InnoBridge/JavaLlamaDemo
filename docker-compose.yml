@@ -15,7 +15,8 @@ services:
       - .env
     volumes:
       - ${PWD}:/app
-      - /Users/yilengyao/Documents/JavaLlama/JavaLlama/:/JavaLlama
+      - /Users/yilengyao/Documents/JavaLlama/JavaLlama:/JavaLlama
+      - /Users/yilengyao/.hugging_face/models:/Users/yilengyao/.hugging_face/models
       - /var/run/docker.sock:/var/run/docker.sock
       - ./local/root:/root
       - ~/.m2:/root/.m2
