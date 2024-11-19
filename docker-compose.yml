@@ -1,0 +1,22 @@
+---
+services:
+
+  ############ auth application ############
+  llama_application:
+    image: openjdk:22-slim
+    container_name: llama-application
+    working_dir: /app
+    extra_hosts:
+      - "localhost:192.168.65.2"
+    ports:
+      - 8080:8080
+      - 5005:5005
+    env_file:
+      - .env
+    volumes:
+      - ${PWD}:/app
+      - /Users/yilengyao/Documents/JavaLlama/JavaLlama/:/JavaLlama
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./local/root:/root
+      - ~/.m2:/root/.m2
+    tty: true
