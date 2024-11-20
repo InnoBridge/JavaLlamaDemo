@@ -44,7 +44,7 @@
     <dependency>
       <groupId>io.github.innobridge</groupId>
       <artifactId>llama</artifactId>
-      <version>0.0.2-SNAPSHOT</version>
+      <version>0.0.4</version>
     </dependency>
 
     <!-- OpenAPI/Swagger -->
