@@ -3,7 +3,7 @@ services:
 
   ############ llama application ###########
   llama_application:
-    image: ubuntu:noble
+    build: .
     container_name: llama-application
     working_dir: /app
     extra_hosts:
@@ -13,27 +13,10 @@ services:
       - 5005:5005
     env_file:
       - .env
-    environment:
-      - JAVA_HOME=/opt/java
-      - PATH=/opt/java/bin:${PATH}
     volumes:
       - ${PWD}:/app
+      - /Users/yilengyao/Documents/JavaLlama/JavaLlama:/JavaLlama
       - /Users/yilengyao/.hugging_face/models:/Users/yilengyao/.hugging_face/models
       - /var/run/docker.sock:/var/run/docker.sock
       - ./local/root:/root
-      - ~/.m2:/root/.m2
-    command: >
-      bash -c "
-        apt-get update && 
-        apt-get install -y wget libgomp1 maven &&
-        wget -O /tmp/jdk.tar.gz https://github.com/adoptium/temurin22-binaries/releases/download/jdk-22%2B36/OpenJDK22U-jdk_aarch64_linux_hotspot_22_36.tar.gz &&
-        mkdir -p /opt/java &&
-        tar -xzf /tmp/jdk.tar.gz -C /opt/java --strip-components=1 &&
-        rm /tmp/jdk.tar.gz &&
-        echo 'export JAVA_HOME=/opt/java' >> /etc/profile.d/java.sh &&
-        echo 'export PATH=/opt/java/bin:\$PATH' >> /etc/profile.d/java.sh &&
-        chmod +x /etc/profile.d/java.sh &&
-        . /etc/profile.d/java.sh &&
-        tail -f /dev/null
-      "
     tty: true
