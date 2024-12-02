@@ -44,7 +44,8 @@
     <dependency>
       <groupId>io.github.innobridge</groupId>
       <artifactId>llama</artifactId>
-      <version>0.0.4</version>
+      <version>0.0.5-SNAPSHOT-2</version>
+	  <classifier>cuda12-linux-x86-64</classifier>
     </dependency>
 
     <!-- OpenAPI/Swagger -->
