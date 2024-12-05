@@ -37,19 +37,24 @@ public class LLMConfiguration {
 
     logger.info("Creating LlamaClient with modelFilepath: {} and nGpuLayers: {}", modelFilepath, nGpuLayers);
     
-    // Create model with optimized parameters
-    ModelParameters params = new ModelParameters()
-        .setModelFilePath(modelFilepath)
-        .setNGpuLayers(nGpuLayers)
-        .setNoKvOffload(noKvOffload)
-        .setNThreads(Runtime.getRuntime().availableProcessors()) // Use all available CPU threads
-        .setNBatch(512)  // Increase batch size for better throughput
-        .setNCtx(4096)   // Set context window
-        .setUseMmap(true)  // Use memory mapping for faster loading
-        .setUseMlock(true)  // Lock memory to prevent swapping
-        .setEmbedding(false);  // Disable embedding if not needed
-        
-    LlamaModel model = new LlamaModel(params);
-    return new LlamaClient(model);
+    try {
+      // Create model with optimized parameters
+      ModelParameters params = new ModelParameters()
+          .setModelFilePath(modelFilepath)
+          .setNGpuLayers(nGpuLayers)
+          .setNoKvOffload(noKvOffload)
+          .setNThreads(Runtime.getRuntime().availableProcessors()) // Use all available CPU threads
+          .setNBatch(512)  // Increase batch size for better throughput
+          .setNCtx(4096)   // Set context window
+          .setUseMmap(true)  // Use memory mapping for faster loading
+          .setUseMlock(true)  // Lock memory to prevent swapping
+          .setEmbedding(false);  // Disable embedding if not needed
+          
+      LlamaModel model = new LlamaModel(params);
+      return new LlamaClient(model);
+    } catch (Exception e) {
+      logger.error("Failed to load model", e);
+      throw new RuntimeException("Failed to load model: " + e.getMessage(), e);
+    }
   }
 }
